@@ -1,6 +1,20 @@
-# Welcome to Remix + Vite!
+# Ver Depois APP
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/guides/vite) for details on supported features.
+## Stack
+
+- [x] [Remix run](https://remix.run)
+- [x] [Typescript](https://www.typescriptlang.org)
+- [x] [React](https://react.dev)
+- [] [Material UI](https://mui.com/material-ui)
+
+## Features
+
+- [] CRUD de Categorias
+- [] CRUD de Post para ver depois
+- [] Visualização dos POSTS
+- [] Ordenar por: Mais recentes, Mais antigos
+- [] Filtrar por: Lidos / não lidos
+
 
 ## Development
 
@@ -23,14 +37,3 @@ Then run the app in production mode:
 ```sh
 npm start
 ```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
