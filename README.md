@@ -5,15 +5,15 @@
 - [x] [Remix run](https://remix.run)
 - [x] [Typescript](https://www.typescriptlang.org)
 - [x] [React](https://react.dev)
-- [] [Material UI](https://mui.com/material-ui)
+- [ ] [Material UI](https://mui.com/material-ui)
 
 ## Features
 
-- [] CRUD de Categorias
-- [] CRUD de Post para ver depois
-- [] Visualização dos POSTS
-- [] Ordenar por: Mais recentes, Mais antigos
-- [] Filtrar por: Lidos / não lidos
+- [ ] CRUD de Categorias
+- [ ] CRUD de Post para ver depois
+- [ ] Visualização dos POSTS
+- [ ] Ordenar por: Mais recentes, Mais antigos
+- [ ] Filtrar por: Lidos / não lidos
 
 
 ## Development
