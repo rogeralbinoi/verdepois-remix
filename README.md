@@ -21,7 +21,7 @@
 Run the Vite dev server:
 
 ```shellscript
-npm run dev
+yarn dev
 ```
 
 ## Deployment
@@ -29,11 +29,11 @@ npm run dev
 First, build your app for production:
 
 ```sh
-npm run build
+yarn build
 ```
 
 Then run the app in production mode:
 
 ```sh
-npm start
+yarn start
 ```
