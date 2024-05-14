@@ -5,7 +5,7 @@
 - [x] [Remix run](https://remix.run)
 - [x] [Typescript](https://www.typescriptlang.org)
 - [x] [React](https://react.dev)
-- [ ] [Material UI](https://mui.com/material-ui)
+- [x] [Chakra UI](https://v2.chakra-ui.com)
 
 ## Features
 
