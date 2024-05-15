@@ -9,7 +9,7 @@ import {
 import React, { useContext, useEffect } from 'react'
 import { withEmotionCache } from '@emotion/react'
 import { ChakraProvider } from '@chakra-ui/react'
-import { theme } from "./theme";
+import { theme } from "~/theme";
 import * as API from "~/api";
 
 import { MetaFunction, LinksFunction, LoaderFunctionArgs, redirect } from '@remix-run/node'

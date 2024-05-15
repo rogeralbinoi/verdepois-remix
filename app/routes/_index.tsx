@@ -45,7 +45,7 @@ export default function Index() {
   }, [params, data]);
 
   return (
-    <Box mt="5">
+    <Box mt="5" flex="1">
       <PostLinkList postLinks={filteredPosts}/>
     </Box>
   );

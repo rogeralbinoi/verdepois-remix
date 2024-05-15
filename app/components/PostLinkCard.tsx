@@ -3,6 +3,7 @@ import { Card, CardBody, Heading, Text, CardFooter, Button, CardHeader, HStack, 
 import { PostLink } from "~/types/post_link";
 import { DeleteIcon, EditIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import CategoryTags from "./CategoryTags";
+import DeleteCardButton from "./DeleteCardButton";
 
 type PostLinkCardProps = {
     postLink: PostLink;
@@ -13,7 +14,7 @@ export default function PostLinkCard({ postLink }: PostLinkCardProps) {
         <Card>
             <CardHeader>
                 <HStack>
-                    <Heading size="md" noOfLines={2}>{postLink?.title}</Heading>
+                    <Heading role="heading" size="md" noOfLines={2}>{postLink?.title}</Heading>
                 </HStack>
                 <CategoryTags categories={postLink?.categories}/>
             </CardHeader>
@@ -22,9 +23,7 @@ export default function PostLinkCard({ postLink }: PostLinkCardProps) {
             </CardBody>
             <CardFooter>
                 <HStack w="100%">
-                    <Form method="DELETE">
-                        <IconButton type="submit" name="id" value={postLink?.id} aria-label='Delete Card' size="sm" icon={<DeleteIcon />} />
-                    </Form>
+                    <DeleteCardButton id={postLink?.id}/>
                     <IconButton
                         as={Link}
                         to={`/post_links/${postLink?.id}`}

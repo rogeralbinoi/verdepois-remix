@@ -11,7 +11,8 @@
     "typecheck": "tsc",
     "cy:open": "cypress open",
     "json-server": "npx json-server db.json",
-    "db:create": "cp db_example.json db.json"
+    "db:create": "cp db_example.json db.json",
+    "test": "vitest"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -23,6 +24,8 @@
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@vitejs/plugin-react": "^4.2.1",
     "axios": "^1.6.8",
     "framer-motion": "^11.1.9",
     "isbot": "^4.1.0",
@@ -31,9 +34,13 @@
     "url-slug": "^4.0.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-react": "^7.24.1",
     "@remix-run/dev": "^2.9.2",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.7",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "cypress": "^13.9.0",
@@ -43,10 +50,14 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "happy-dom": "^14.11.0",
+    "jsdom": "^24.0.0",
     "json-server": "^1.0.0-alpha.23",
+    "react-test-renderer": "^18.3.1",
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^1.6.0"
   },
   "engines": {
     "node": ">=18.0.0"

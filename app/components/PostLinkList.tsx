@@ -6,18 +6,15 @@ type PostLinkListProps = {
     postLinks: PostLink[]
 }
 
-export default function Index({ postLinks }: PostLinkListProps) {
+export default function PostLinkList({ postLinks }: PostLinkListProps) {
   return (
-      <Grid templateColumns={
-        {
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(3, 1fr)',
-          base: '1fr'
-        }
+      <Grid 
+      templateColumns={
+       "repeat(auto-fit, minmax(260px, 260px))" 
       } gap={6}>
         {
           postLinks?.map(item => (
-            <GridItem w='100%' maxW="300px" key={item.id}>
+            <GridItem maxW="260px" key={item.id}>
               <PostLinkCard postLink={item}></PostLinkCard>
             </GridItem>
           ))

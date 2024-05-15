@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
+import { Box, Button, HStack, Heading, Text } from '@chakra-ui/react'
 import { NavLink, useSearchParams } from "@remix-run/react";
 import { useCallback } from 'react';
 import { Category } from '~/types/post_link';
@@ -26,25 +26,27 @@ function Nav({ categories }: NavProps) {
             </Box>
             {categories?.length ? (
                 <>
-                <Box mt="2" mb="2">
-                    <NavLink to={{
-                        search: ""
-                    }}>
-                        <Button w="100%" colorScheme='primary' variant={isAllActive() ? 'solid' : 'outline'}>Todas as categorias</Button>
-                    </NavLink>
-                </Box>
-                {categories.map(item => {
-                    return (
-                        <Box mt="2" mb="2" key={item.name}>
-                            <NavLink to={{
-                                search: `?category=${item.name}`
-                            }}>
-                                <Button w="100%" colorScheme='primary' variant={isActive(item.name) ? 'solid' : 'outline'}>{item.value}</Button>
-                            </NavLink>
-                        </Box>
-                    )
-                })}
-            </>
+                    <Box mt="2" mb="2">
+                        <NavLink to={{
+                            search: ""
+                        }}>
+                            <Button w="100%" colorScheme='primary' variant={isAllActive() ? 'solid' : 'outline'}>Todas as categorias</Button>
+                        </NavLink>
+                    </Box>
+                    <HStack wrap="wrap" gap="2">
+                        {categories.map(item => {
+                            return (
+                                <Box key={item.name}>
+                                    <NavLink to={{
+                                        search: `?category=${item.name}`
+                                    }}>
+                                        <Button colorScheme='primary' variant={isActive(item.name) ? 'solid' : 'outline'}>{item.value}</Button>
+                                    </NavLink>
+                                </Box>
+                            )
+                        })}
+                    </HStack>
+                </>
             ) : (
                 <Text>Ainda não há categorias</Text>
             )}

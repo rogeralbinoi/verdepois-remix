@@ -1,0 +1,52 @@
+export const post_links = [
+    {
+        "title": "Ganhando performance com Apollo APQ — Automatic Persisted Queries",
+        "link": "https://rogeralbino.dev.br/posts/ganhando-performance-com-apollo-apq-automatic-persisted-queries-graphql/",
+        "categories": [
+            {
+                "name": "graph-ql",
+                "value": "GraphQL"
+            },
+            {
+                "name": "node-js",
+                "value": "NodeJS"
+            }
+        ],
+        "description": "Uma das maiores reclamações que temos sobre o GraphQL é com o tamanho das requests que são enviadas a todo momento para o servidor. Algumas queries podem ser realmente grandes, e ficar enviando em toda request pode ser um pouco custoso. Para isso, o Apollo Server teve uma solução bem legal que são as Automatic Persisted Queries.",
+        "id": "28a5"
+    },
+    {
+        "title": "Como criar um tema escuro (darkmode) apenas com CSS",
+        "link": "https://rogeralbino.dev.br/posts/como-criar-um-tema-escuro-darkmode-apenas-com-css/",
+        "categories": [
+            {
+                "name": "css",
+                "value": "CSS"
+            },
+            {
+                "name": "style",
+                "value": "Style"
+            },
+            {
+                "name": "site",
+                "value": "Site"
+            }
+        ],
+        "description": "Dica rápida de CSS. Criando e selecionando tema escuro a partir da preferência do dispositivo do usuário com CSS puro.",
+        "id": "2fe5"
+    },
+    {
+        "id": "d852",
+        "title": "My Talks",
+        "link": "https://rogeralbino.dev.br/talks/",
+        "categories": [
+            {
+                "name": "talks",
+                "value": "talks"
+            }
+        ],
+        "description": "My talks"
+    }
+]
+
+export default post_links;
