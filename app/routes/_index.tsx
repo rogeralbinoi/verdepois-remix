@@ -1,21 +1,22 @@
 import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Form, Link, redirect, useLoaderData, useSearchParams } from "@remix-run/react";
 import { Card, CardBody, Heading, Text, Grid, GridItem, Container, CardFooter, Button, CardHeader, HStack, Tag, Link as ChakraLink, IconButton, Spacer } from '@chakra-ui/react'
-import { Category, PostLink } from "~/types/post_link";
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { PostLink } from "~/types/post_link";
+import { DeleteIcon, EditIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import { useMemo } from "react";
+import * as API from "~/api";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { charSet: 'utf-8' },
+    { title: `Home - Ver Depois` },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
   ];
 };
 
 export async function loader() {
-  const data = await fetch("http://localhost:3000/post_links");
-  const _items = await data.json();
-  return _items
+  const { data } = await API.getAllPostLinks();
+  return data;
 }
 
 export async function action({
@@ -26,22 +27,9 @@ export async function action({
   }
 
   const body = await request.formData();
-  const data = {
-    title: body.get('title'),
-    link: body.get('link'),
-    categories: JSON.parse(body.get("categories") as string),
-    description: body.get('description')
-  };
+  const id = body.get('id') as string;
 
-  const id = body.get('id');
-
-  await fetch(`http://localhost:3000/post_links/${id}`, {
-    method: "DELETE",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
+  await API.deletePostLink(id);
 
   return redirect(`/`);
 }
@@ -71,7 +59,22 @@ export default function Index() {
               <CardHeader>
                 <HStack>
                   <Heading size="md" noOfLines={2}>{item.title}</Heading>
-                  <Spacer></Spacer>
+                </HStack>
+                <HStack spacing={2} mt="2" wrap="wrap">
+                  {item?.categories?.map((category) => (
+                    <Tag size={"md"} key={category.name} as={Link} to={{
+                      search: `?category=${encodeURIComponent(category.name)}`
+                    }} variant='solid' colorScheme='primary'>
+                      {category.value}
+                    </Tag>
+                  ))}
+                </HStack>
+              </CardHeader>
+              <CardBody>
+                <Text noOfLines={3}>{item.description}</Text>
+              </CardBody>
+              <CardFooter>
+                <HStack w="100%">
                   <Form method="DELETE">
                     <IconButton type="submit" name="id" value={item.id} aria-label='Delete Card' size="sm" icon={<DeleteIcon />} />
                   </Form>
@@ -82,24 +85,12 @@ export default function Index() {
                     size="sm"
                     icon={<EditIcon />}
                   />
+                  <Spacer />
+                  <Button as={ChakraLink} colorScheme='primary' variant='outline' href={item.link} isExternal  rightIcon={<ExternalLinkIcon />}>
+                    Acessar Link
+                  </Button>
                 </HStack>
-                <HStack spacing={2} mt="2" wrap="wrap">
-                  {item?.categories?.map((category) => (
-                    <Tag size={"md"} key={category.name} as={Link} to={{
-                      search: `?category=${encodeURIComponent(category.name)}`
-                    }} variant='solid' colorScheme='teal'>
-                      {category.value}
-                    </Tag>
-                  ))}
-                </HStack>
-              </CardHeader>
-              <CardBody>
-                <Text noOfLines={3}>{item.description}</Text>
-              </CardBody>
-              <CardFooter>
-                <Button w="100%" as={ChakraLink} colorScheme='teal' variant='outline' href={item.link} isExternal>
-                  Acessar Link
-                </Button>
+
               </CardFooter>
             </Card>
           </GridItem>)

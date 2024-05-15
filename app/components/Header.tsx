@@ -10,7 +10,7 @@ function Header() {
                         Ver depois
                     </Heading>
                     <Spacer />
-                    <Button colorScheme='blue' as={Link} to="/post_links/new">Novo</Button>
+                    <Button colorScheme="primary" as={Link} to="/post_links/new">Novo</Button>
                 </Flex>
             </Container>
         </Box>

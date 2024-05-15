@@ -1,5 +1,5 @@
 import { Form } from "@remix-run/react";
-import { 
+import {
   Container,
   Box,
   Heading,
@@ -7,18 +7,22 @@ import {
   FormLabel,
   Input,
   Textarea,
-  Button
+  Button,
+  HStack,
+  Spacer,
+  Divider,
+  VStack
 } from '@chakra-ui/react'
 import CategoriesInput from "~/components/CategoriesInput";
 import { PostLink } from "~/types/post_link";
 
 type PostLinkFormProps = {
-    postLink?: PostLink | null
+  postLink?: PostLink | null
 }
 
 function PostLinkForm({
-    postLink = null
-} : PostLinkFormProps) {
+  postLink = null
+}: PostLinkFormProps) {
   return (
     <Container
       as={Form}
@@ -29,9 +33,12 @@ function PostLinkForm({
       mt="5"
       method="post"
     >
-      <Box mb="5">
+      <HStack mb="5">
         <Heading size="md">Novo link</Heading>
-      </Box>
+        <Spacer />
+        <Button type="submit" colorScheme="secondary" color="black">Salvar</Button>
+      </HStack>
+      <Divider />
       <FormControl mt="5" isRequired>
         <FormLabel>Title</FormLabel>
         <Input name="title" type="text" required defaultValue={postLink?.title} />
@@ -52,7 +59,11 @@ function PostLinkForm({
 
       {postLink?.id ? <Input name="id" value={postLink?.id} type="hidden" /> : null}
 
-      <Button type="submit">Salvar</Button>
+      <Divider />
+      <HStack mt="2">
+        <Spacer />
+        <Button type="submit" colorScheme="secondary" color="black">Salvar</Button>
+      </HStack>
     </Container>
   );
 }

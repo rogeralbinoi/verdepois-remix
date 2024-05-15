@@ -9,11 +9,9 @@
 
 ## Features
 
-- [ ] CRUD de Categorias
-- [ ] CRUD de Post para ver depois
-- [ ] Visualização dos POSTS
-- [ ] Ordenar por: Mais recentes, Mais antigos
-- [ ] Filtrar por: Lidos / não lidos
+- [x] CRUD de Post para ver depois
+- [x] Visualização dos POSTS
+- [x] Filtro por categoria
 
 
 ## Development

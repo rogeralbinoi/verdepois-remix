@@ -7,22 +7,24 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import React, { useContext, useEffect, useMemo } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { withEmotionCache } from '@emotion/react'
-import { ChakraProvider, Grid, GridItem } from '@chakra-ui/react'
+import { Box, ChakraProvider, Container, HStack } from '@chakra-ui/react'
 import { theme } from "./theme";
+import * as API from "~/api";
 
 import { MetaFunction, LinksFunction, LoaderFunctionArgs, redirect } from '@remix-run/node'
 
 import { ServerStyleContext, ClientStyleContext } from './context'
 import Header from "./components/Header";
 import Nav from "./components/Nav";
-import { Category, PostLink } from "./types/post_link";
+import { Category } from "./types/post_link";
+import { uniqueBy } from "./utils/uniqueBy";
 
 export const meta: MetaFunction = () => {
   return [
     { charSet: 'utf-8' },
-    { title: 'New Remix App' },
+    { title: 'Teste' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
   ];
 };
@@ -42,32 +44,15 @@ interface DocumentProps {
   children: React.ReactNode;
 }
 
-function uniqueBy<T>(fieldName: keyof T, array: T[]): T[] {
-  const uniqueMap = new Map<T[K], boolean>();
-  const uniqueArray: T[] = [];
-
-  array.forEach(item => {
-    const key = item[fieldName];
-    if (!uniqueMap.has(key)) {
-      uniqueMap.set(key, true);
-      uniqueArray.push(item);
-    }
-  });
-
-  return uniqueArray;
-}
-
-export async function loader( { request } : LoaderFunctionArgs) {
-  const data = await fetch("http://localhost:3000/post_links");
-  const _items: PostLink[] = await data.json();
-  const nameField: keyof Category = "name";
+export async function loader({ request }: LoaderFunctionArgs) {
+  const { data } = await API.getAllPostLinks();
 
   const url = new URL(request.url);
   const categoryFilter = url.searchParams.get("category");
 
 
 
-  const _categories = uniqueBy<Category>(nameField, _items.map(item => item.categories).flat(Infinity) as Category[]);
+  const _categories = uniqueBy<Category>("name", data.map(item => item.categories).flat(Infinity) as Category[]);
   const categoryFilterExists = _categories.some(item => item.name === categoryFilter);
 
   if (categoryFilter && !categoryFilterExists) {
@@ -76,7 +61,11 @@ export async function loader( { request } : LoaderFunctionArgs) {
   return _categories;
 }
 
-export const Layout = withEmotionCache(
+type emotionCacheSheet = {
+  _insertTag: (tag: HTMLStyleElement) => void;
+}
+
+export const Document = withEmotionCache(
   ({ children }: DocumentProps, emotionCache) => {
     const serverStyleData = useContext(ServerStyleContext);
     const clientStyleData = useContext(ClientStyleContext);
@@ -86,9 +75,10 @@ export const Layout = withEmotionCache(
       const tags = emotionCache.sheet.tags;
       emotionCache.sheet.flush();
       tags.forEach((tag) => {
-        (emotionCache.sheet as any)._insertTag(tag);
+        (emotionCache.sheet as unknown as emotionCacheSheet)._insertTag(tag);
       });
       clientStyleData?.reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -116,43 +106,24 @@ export const Layout = withEmotionCache(
 );
 
 export default function App() {
-  const categories = useLoaderData<Category[]>();
+  const categories = useLoaderData<typeof loader>();
+
   return (
-    <ChakraProvider theme={theme}>
-      <Grid
-        templateAreas={{
-          lg: `"header header"
-          "nav main"
-          "nav footer"`,
-          base: `"header header"
-          "nav nav"
-          "main main"
-          "footer footer"`
-        }}
-        gridTemplateRows={{
-          lg: 'auto 1fr 30px',
-          base: 'auto auto auto'
-        }}
-        gridTemplateColumns={{
-          lg: '350px 1fr',
-          base: '1fr'
-        }}
-        h='100vh'
-        gap='1'
-      >
-        <GridItem area={'header'}>
+    <Document>
+      <ChakraProvider theme={theme}>
+        <Box>
           <Header />
-        </GridItem>
-        <GridItem area={'nav'}>
-          <Nav categories={categories} />
-        </GridItem>
-        <GridItem area={'main'}>
-          <Outlet />
-        </GridItem>
-        <GridItem area={'footer'}>
-          Footer
-        </GridItem>
-      </Grid>
-    </ChakraProvider>
+          <Container maxW="7xl">
+            <HStack align="top" wrap={{
+              base: "wrap",
+              lg: "nowrap"
+            }}>
+              <Nav categories={categories} />
+              <Outlet />
+            </HStack>
+          </Container>
+        </Box>
+      </ChakraProvider>
+    </Document>
   )
 }

@@ -1,5 +1,6 @@
 import { Box, Button, Heading, Text } from '@chakra-ui/react'
-import { NavLink } from "@remix-run/react";
+import { NavLink, useSearchParams } from "@remix-run/react";
+import { useCallback } from 'react';
 import { Category } from '~/types/post_link';
 
 
@@ -8,8 +9,18 @@ type NavProps = {
 }
 
 function Nav({ categories }: NavProps) {
+    const [params] = useSearchParams();
+
+    const isActive = useCallback((category: string) => {
+        return category === params.get('category')
+    }, [params]);
+
+    const isAllActive = useCallback(() => {
+        return !params.get('category')
+    }, [params]);
+
     return (
-        <Box p='5'>
+        <Box p='5' w="sm">
             <Box mb="5">
                 <Heading size="md">Categorias</Heading>
             </Box>
@@ -19,7 +30,7 @@ function Nav({ categories }: NavProps) {
                     <NavLink to={{
                         search: ""
                     }}>
-                        <Button w="100%" colorScheme='teal' variant='outline'>Todas as categorias</Button>
+                        <Button w="100%" colorScheme='primary' variant={isAllActive() ? 'solid' : 'outline'}>Todas as categorias</Button>
                     </NavLink>
                 </Box>
                 {categories.map(item => {
@@ -28,7 +39,7 @@ function Nav({ categories }: NavProps) {
                             <NavLink to={{
                                 search: `?category=${item.name}`
                             }}>
-                                <Button w="100%" colorScheme='teal' variant='outline'>{item.value}</Button>
+                                <Button w="100%" colorScheme='primary' variant={isActive(item.name) ? 'solid' : 'outline'}>{item.value}</Button>
                             </NavLink>
                         </Box>
                     )

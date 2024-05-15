@@ -1,10 +1,10 @@
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import { Box, HStack, Button, Input, Tag, IconButton } from '@chakra-ui/react'
+import { Box, HStack, Button, Input, Tag, IconButton, Text, Show, Hide } from '@chakra-ui/react'
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import slug from "url-slug";
 import { Category } from '~/types/post_link';
 
-type categoriesInputProps = { name: string, defaultValue: Category[] };
+type categoriesInputProps = { name: string, defaultValue: Category[] | null };
 
 function CategoriesInput({ name, defaultValue }: categoriesInputProps) {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -18,6 +18,7 @@ function CategoriesInput({ name, defaultValue }: categoriesInputProps) {
     }, [defaultValue]);
 
     const addCategory = useCallback(() => {
+        if (!value) return;
         setCategories((_categories) => {
             return _categories.concat({
                 name: slug(value),
@@ -55,17 +56,24 @@ function CategoriesInput({ name, defaultValue }: categoriesInputProps) {
                     onChange={onChange}
                     onKeyDown={handleKeyDown}
                     placeholder="Category" />
-                <Button size="sm" leftIcon={<AddIcon />} onClick={() => addCategory()}>
-                    Adicionar
-                </Button>
+                <Hide below="md">
+                    <Button size="sm" colorScheme="secondary" color="black" leftIcon={<AddIcon />} onClick={() => addCategory()}>
+                        Adicionar
+                    </Button>
+                </Hide>
+                <Show below="md">
+                    <IconButton aria-label="Adicionar" size="sm" colorScheme="secondary" color="black" icon={<AddIcon />} onClick={() => addCategory()} />
+                </Show>
             </HStack>
             <Box mt="5" mb="5" h="100px">
                 {categories.map(item => {
                     return (
-                        <Tag key={item.name} m="1">
+                        <Tag key={item.name} m="1" color="white" bg="primary.500">
                             <IconButton
-                            onClick={() => removeCategory(item.name)}
-                            size="sm" m="0" aria-label="Remover Categoria" icon={<DeleteIcon />} />{item.value}
+                                colorScheme='primary'
+                                onClick={() => removeCategory(item.name)}
+                                size="sm" m="0" aria-label="Remover Categoria" icon={<DeleteIcon />} />
+                            <Text as="span">{item.value}</Text>
                         </Tag>
                     );
                 })}
