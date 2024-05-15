@@ -9,7 +9,9 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "json-server": "npx json-server db.json",
+    "db:create": "cp db_example.json db.json"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",

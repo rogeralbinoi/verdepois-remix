@@ -1,7 +1,6 @@
 import {
   Links,
   Meta,
-  Outlet,
   Scripts,
   LiveReload,
   ScrollRestoration,
@@ -9,17 +8,16 @@ import {
 } from "@remix-run/react";
 import React, { useContext, useEffect } from 'react'
 import { withEmotionCache } from '@emotion/react'
-import { Box, ChakraProvider, Container, HStack } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from "./theme";
 import * as API from "~/api";
 
 import { MetaFunction, LinksFunction, LoaderFunctionArgs, redirect } from '@remix-run/node'
 
 import { ServerStyleContext, ClientStyleContext } from './context'
-import Header from "./components/Header";
-import Nav from "./components/Nav";
 import { Category } from "./types/post_link";
 import { uniqueBy } from "./utils/uniqueBy";
+import BaseLayout from "./components/BaseLayout";
 
 export const meta: MetaFunction = () => {
   return [
@@ -111,18 +109,7 @@ export default function App() {
   return (
     <Document>
       <ChakraProvider theme={theme}>
-        <Box>
-          <Header />
-          <Container maxW="7xl">
-            <HStack align="top" wrap={{
-              base: "wrap",
-              lg: "nowrap"
-            }}>
-              <Nav categories={categories} />
-              <Outlet />
-            </HStack>
-          </Container>
-        </Box>
+        <BaseLayout categories={categories}/>
       </ChakraProvider>
     </Document>
   )

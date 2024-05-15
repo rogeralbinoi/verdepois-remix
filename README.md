@@ -13,10 +13,31 @@
 - [x] Visualização dos POSTS
 - [x] Filtro por categoria
 
+## Environment
+
+Configure `.env` file
+
+```sh
+API_BASE_URL=http://localhost:3000
+```
 
 ## Development
 
-Run the Vite dev server:
+First, copy `db_example.json` to `db.json`.
+
+```sh
+yarn db:create
+# or
+cp db_example.json db.json
+```
+
+Then run `json-server`
+
+```sh
+yarn json-server
+```
+
+Then run the Vite dev server:
 
 ```shellscript
 yarn dev

@@ -1,10 +1,10 @@
 import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
-import { Form, Link, redirect, useLoaderData, useSearchParams } from "@remix-run/react";
-import { Card, CardBody, Heading, Text, Grid, GridItem, Container, CardFooter, Button, CardHeader, HStack, Tag, Link as ChakraLink, IconButton, Spacer } from '@chakra-ui/react'
+import { redirect, useLoaderData, useSearchParams } from "@remix-run/react";
 import { PostLink } from "~/types/post_link";
-import { DeleteIcon, EditIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import { useMemo } from "react";
 import * as API from "~/api";
+import PostLinkList from "~/components/PostLinkList";
+import { Box } from "@chakra-ui/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -45,57 +45,8 @@ export default function Index() {
   }, [params, data]);
 
   return (
-    <Container maxW="7xl" mt="5">
-      <Grid templateColumns={
-        {
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(3, 1fr)',
-          base: '1fr'
-        }
-      } gap={6}>
-        {
-          filteredPosts?.map(item => <GridItem w='100%' maxW="300px" key={item.id}>
-            <Card>
-              <CardHeader>
-                <HStack>
-                  <Heading size="md" noOfLines={2}>{item.title}</Heading>
-                </HStack>
-                <HStack spacing={2} mt="2" wrap="wrap">
-                  {item?.categories?.map((category) => (
-                    <Tag size={"md"} key={category.name} as={Link} to={{
-                      search: `?category=${encodeURIComponent(category.name)}`
-                    }} variant='solid' colorScheme='primary'>
-                      {category.value}
-                    </Tag>
-                  ))}
-                </HStack>
-              </CardHeader>
-              <CardBody>
-                <Text noOfLines={3}>{item.description}</Text>
-              </CardBody>
-              <CardFooter>
-                <HStack w="100%">
-                  <Form method="DELETE">
-                    <IconButton type="submit" name="id" value={item.id} aria-label='Delete Card' size="sm" icon={<DeleteIcon />} />
-                  </Form>
-                  <IconButton
-                    as={Link}
-                    to={`/post_links/${item.id}`}
-                    aria-label='Edit Card'
-                    size="sm"
-                    icon={<EditIcon />}
-                  />
-                  <Spacer />
-                  <Button as={ChakraLink} colorScheme='primary' variant='outline' href={item.link} isExternal  rightIcon={<ExternalLinkIcon />}>
-                    Acessar Link
-                  </Button>
-                </HStack>
-
-              </CardFooter>
-            </Card>
-          </GridItem>)
-        }
-      </Grid>
-    </Container>
+    <Box mt="5">
+      <PostLinkList postLinks={filteredPosts}/>
+    </Box>
   );
 }

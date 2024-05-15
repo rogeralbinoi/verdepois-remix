@@ -1,7 +1,7 @@
 {
   "post_links": [
     {
-      "title": "aaaGanhando performance com Apollo APQ — Automatic Persisted Queries",
+      "title": "Ganhando performance com Apollo APQ — Automatic Persisted Queries",
       "link": "https://rogeralbino.dev.br/posts/ganhando-performance-com-apollo-apq-automatic-persisted-queries-graphql/",
       "categories": [
         {
@@ -11,6 +11,10 @@
         {
           "name": "node-js",
           "value": "NodeJS"
+        },
+        {
+          "name": "site",
+          "value": "Site"
         }
       ],
       "description": "Uma das maiores reclamações que temos sobre o GraphQL é com o tamanho das requests que são enviadas a todo momento para o servidor. Algumas queries podem ser realmente grandes, e ficar enviando em toda request pode ser um pouco custoso. Para isso, o Apollo Server teve uma solução bem legal que são as Automatic Persisted Queries.",

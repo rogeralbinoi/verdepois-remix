@@ -1,7 +1,6 @@
 import type { MetaFunction, ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { redirect, useLoaderData } from "@remix-run/react";
 import PostLinkForm from "~/components/PostLinkForm";
-import { PostLink } from "~/types/post_link";
 import * as API from "~/api";
 
 export async function action({
@@ -39,6 +38,6 @@ export default function Index() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <PostLinkForm postLink={data} />
+    <PostLinkForm method="PUT" postLink={data} />
   );
 }

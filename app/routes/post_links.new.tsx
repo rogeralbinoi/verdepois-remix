@@ -33,6 +33,6 @@ export async function loader() {
 
 export default function Index() {
   return (
-    <PostLinkForm />
+    <PostLinkForm method="POST" />
   );
 }
